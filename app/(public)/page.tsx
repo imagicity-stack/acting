@@ -1,5 +1,7 @@
 'use client';
 
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import {
   Bell,
@@ -64,6 +66,8 @@ const sidebarLinks = [
 ];
 
 export default function LandingPage() {
+  const router = useRouter();
+
   return (
     <div className="min-h-screen bg-[#E7EAF4] px-6 py-10 text-slate-900">
       <motion.div
@@ -83,21 +87,31 @@ export default function LandingPage() {
             <ChevronDown className="ml-auto h-4 w-4 text-slate-400" />
           </div>
 
-          <button className="rounded-2xl bg-gradient-to-r from-[#5B7CFF] to-[#728BFF] px-4 py-2 text-sm font-semibold text-white shadow-lg">
+          <Link
+            href="/director/dashboard"
+            className="rounded-2xl bg-gradient-to-r from-[#5B7CFF] to-[#728BFF] px-4 py-2 text-center text-sm font-semibold text-white shadow-lg"
+          >
             Request for talent
-          </button>
+          </Link>
 
           <nav className="space-y-2">
             {sidebarLinks.map((item) => (
-              <div
+              <button
                 key={item.label}
+                onClick={() => {
+                  if (item.label === 'People') {
+                    router.push('/actor/roles');
+                  } else if (item.label === 'Dashboard') {
+                    router.push('/director/dashboard');
+                  }
+                }}
                 className={`flex items-center gap-3 rounded-xl px-3 py-2 text-sm ${
                   item.active ? 'bg-[#EEF1FF] text-[#5B7CFF]' : 'text-slate-500'
                 }`}
               >
                 <item.icon className="h-4 w-4" />
                 {item.label}
-              </div>
+              </button>
             ))}
           </nav>
 
@@ -106,7 +120,11 @@ export default function LandingPage() {
               <div className="h-8 w-8 rounded-full bg-[#EEF1FF]" />
               Support
             </div>
-            <button className="flex h-12 w-12 items-center justify-center rounded-full bg-[#5B7CFF] text-white shadow-lg">
+            <button
+              className="flex h-12 w-12 items-center justify-center rounded-full bg-[#5B7CFF] text-white shadow-lg"
+              onClick={() => router.push('/auth/login')}
+              aria-label="Open account menu"
+            >
               <CircleUser className="h-5 w-5" />
             </button>
           </div>
@@ -151,13 +169,22 @@ export default function LandingPage() {
               </div>
 
               <div className="mt-6 flex flex-wrap items-center gap-3 text-xs">
-                <button className="rounded-full bg-[#E7ECFF] px-4 py-2 text-[#5B7CFF]">
+                <button
+                  className="rounded-full bg-[#E7ECFF] px-4 py-2 text-[#5B7CFF]"
+                  onClick={() => router.push('/actor/roles')}
+                >
                   Design Team
                 </button>
-                <button className="rounded-full border border-slate-200 bg-white px-4 py-2 text-slate-500">
+                <button
+                  className="rounded-full border border-slate-200 bg-white px-4 py-2 text-slate-500"
+                  onClick={() => router.push('/director/roles')}
+                >
                   Position
                 </button>
-                <button className="rounded-full border border-slate-200 bg-white px-4 py-2 text-slate-500">
+                <button
+                  className="rounded-full border border-slate-200 bg-white px-4 py-2 text-slate-500"
+                  onClick={() => router.push('/actor/dashboard')}
+                >
                   More
                 </button>
                 <div className="ml-auto flex items-center gap-2 text-slate-400">
@@ -166,10 +193,18 @@ export default function LandingPage() {
                   <ChevronDown className="h-4 w-4" />
                 </div>
                 <div className="flex rounded-full border border-slate-200 bg-white p-1">
-                  <button className="rounded-full bg-[#EEF1FF] px-3 py-2 text-[#5B7CFF]">
+                  <button
+                    className="rounded-full bg-[#EEF1FF] px-3 py-2 text-[#5B7CFF]"
+                    onClick={() => router.push('/actor/roles')}
+                    aria-label="Grid view"
+                  >
                     <LayoutGrid className="h-4 w-4" />
                   </button>
-                  <button className="rounded-full px-3 py-2 text-slate-400">
+                  <button
+                    className="rounded-full px-3 py-2 text-slate-400"
+                    onClick={() => router.push('/actor/profile')}
+                    aria-label="List view"
+                  >
                     <Users2 className="h-4 w-4" />
                   </button>
                 </div>
@@ -184,7 +219,13 @@ export default function LandingPage() {
                   >
                     <div className="flex items-center justify-between">
                       <div className="h-12 w-12 rounded-full bg-[#EEF1FF]" />
-                      <button className="text-slate-300">•••</button>
+                      <button
+                        className="text-slate-300"
+                        onClick={() => router.push('/actor/profile')}
+                        aria-label="Open profile options"
+                      >
+                        •••
+                      </button>
                     </div>
                     <div className="mt-4 text-center">
                       <h3 className="text-sm font-semibold text-slate-800">{person.name}</h3>
@@ -240,7 +281,10 @@ export default function LandingPage() {
                 </div>
               </div>
 
-              <div className="rounded-3xl border border-slate-100 bg-white p-5">
+              <button
+                className="w-full rounded-3xl border border-slate-100 bg-white p-5 text-left"
+                onClick={() => router.push('/actor/notifications')}
+              >
                 <div className="flex items-center gap-3">
                   <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#5B7CFF] text-white">
                     <MessageSquare className="h-4 w-4" />
@@ -250,7 +294,7 @@ export default function LandingPage() {
                     <p className="text-sm font-semibold text-slate-800">Internal messages</p>
                   </div>
                 </div>
-              </div>
+              </button>
             </aside>
           </div>
         </div>
