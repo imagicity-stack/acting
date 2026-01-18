@@ -1,0 +1,69 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-background text-white font-sans antialiased;
+}
+
+body.light {
+  @apply bg-background-light text-slate-900;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+}
+
+body.light ::-webkit-scrollbar-thumb {
+  background: rgba(15, 23, 42, 0.2);
+}
+
+.glass {
+  @apply bg-card-glass backdrop-blur-md border border-white/10 shadow-glass;
+}
+
+.text-gradient {
+  @apply bg-gradient-to-r from-accent-teal via-accent-violet to-accent-teal bg-clip-text text-transparent;
+}
+
+.skeleton {
+  @apply relative overflow-hidden rounded-xl bg-white/5;
+}
+
+.skeleton::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 1.6s linear infinite;
+}
+
+.input-field {
+  @apply rounded-xl border border-white/10 bg-white/5 text-white placeholder:text-white/40 focus:border-accent-teal focus:outline-none;
+}
+
+body.light .input-field {
+  @apply border-slate-200 bg-white text-slate-900 placeholder:text-slate-400;
+}
+
+body.light .glass {
+  @apply border-slate-200 bg-white/70 shadow-xl;
+}
+
+body.light .text-gradient {
+  @apply from-slate-900 via-accent-violet to-accent-teal;
+}
